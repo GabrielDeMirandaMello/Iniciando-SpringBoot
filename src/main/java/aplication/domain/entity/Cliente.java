@@ -2,15 +2,20 @@ package aplication.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
-@Table
+@Table(name = "cliente")
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
+    @Column(name = "id")
     private Integer id;
     @Column(name = "nome", length = 255)
     private String nome;
+
+    @OneToMany(mappedBy = "cliente")
+    private Set<Pedido> pedidos;
 
     public Cliente() {
     }
@@ -25,6 +30,14 @@ public class Cliente {
 
     public Cliente(String nome) {
         this.nome = nome;
+    }
+
+    public Set<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(Set<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public Integer getId() {
