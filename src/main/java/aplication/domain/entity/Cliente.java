@@ -1,5 +1,6 @@
 package aplication.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -13,7 +14,9 @@ public class Cliente {
     private Integer id;
     @Column(name = "nome", length = 255)
     private String nome;
-
+    @Column(name = "cpf", length = 11)
+    private String cpf;
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private Set<Pedido> pedidos;
 
