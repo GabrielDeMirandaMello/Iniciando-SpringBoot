@@ -14,7 +14,7 @@ public class Cliente {
     private Integer id;
     @Column(name = "nome", length = 255)
     private String nome;
-    @Column(name = "cpf", length = 11)
+    @Column(name = "cpf", length = 255)
     private String cpf;
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
@@ -57,6 +57,14 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override

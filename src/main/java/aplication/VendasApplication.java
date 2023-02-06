@@ -17,14 +17,6 @@ import java.time.LocalDate;
 @SpringBootApplication
 @RestController
 public class VendasApplication {
-    @Bean
-    public CommandLineRunner commandLineRunner(
-            @Autowired Clientes clientes,
-            @Autowired Pedidos pedidos) {
-        return args -> {
-
-        };
-    }
     public static void main(String[] args) {
         SpringApplication.run(VendasApplication.class, args);
     }

@@ -13,7 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
     private Clientes clientes;
@@ -23,17 +24,16 @@ public class ClienteController {
     }
 
     @GetMapping("{id}")
+    @CrossOrigin("http://localhost:3000")
     public Cliente getClienteById(@PathVariable Integer id) {
         return clientes
                 .findById(id)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Cliente não encontrado"));
     }
-    @PostMapping("/api/clientes")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente save(@RequestBody Cliente cliente) {
-        return clientes.save(cliente);
-    }
+    public Cliente save(@RequestBody Cliente cliente) { return clientes.save(cliente); }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
