@@ -26,6 +26,7 @@ public class PedidoController{
     }
 
     @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.FOUND)
     public Pedido getPedidoById(@PathVariable Integer id) {
         return pedidos.findById(id)
                 .orElseThrow( () -> new ResponseStatusException(
@@ -33,11 +34,13 @@ public class PedidoController{
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Pedido savePedido (@RequestBody Pedido pedido) {
         return pedidos.save(pedido);
     }
 
     @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePedido(@PathVariable Integer id) {
         pedidos.findById(id)
                 .map( pedido -> {pedidos.delete(pedido);
@@ -48,14 +51,15 @@ public class PedidoController{
     }
 
     @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void update (@PathVariable Integer id,
                         @RequestBody Pedido pedido) {
         pedidos.findById(id).map( pedidoExistente -> {
-            cliente.setId(pedidoExistente.getId());
+            pedido.setId(pedidoExistente.getId());
             pedidos.save(pedido);
             return pedidoExistente;
         } ).orElseThrow( () -> new  ResponseStatusException(HttpStatus.NOT_FOUND,
-                "Cliente não encontrado"));
+                "Pedido não encontrado"));
     }
 
     @GetMapping

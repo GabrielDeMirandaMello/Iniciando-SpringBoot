@@ -18,7 +18,7 @@ public class Pedido {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     @Column(name = "data_pedido")
-    private LocalDate dataPedido;
+    private String dataPedido;
     @Column(name = "total", scale = 2, precision = 20)
     private BigDecimal total;
     @OneToMany(mappedBy = "pedido")
@@ -39,11 +39,11 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public LocalDate getDataPedido() {
+    public String getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(LocalDate dataPedido) {
+    public void setDataPedido(String dataPedido) {
         this.dataPedido = dataPedido;
     }
 
