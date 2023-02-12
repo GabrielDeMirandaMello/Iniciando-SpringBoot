@@ -20,6 +20,9 @@ public class ItemPedido {
     @Column
     private Integer quantidade;
 
+    public ItemPedido() {
+    }
+
     public Integer getId() {
         return id;
     }

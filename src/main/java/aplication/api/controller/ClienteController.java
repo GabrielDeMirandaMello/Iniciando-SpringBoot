@@ -5,16 +5,14 @@ import aplication.domain.repository.Clientes;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clientes")
+//@CrossOrigin("http://localhost:3000")
 public class ClienteController {
 
     private Clientes clientes;
@@ -24,7 +22,6 @@ public class ClienteController {
     }
 
     @GetMapping("{id}")
-    @CrossOrigin("http://localhost:3000")
     public Cliente getClienteById(@PathVariable Integer id) {
         return clientes
                 .findById(id)
@@ -46,6 +43,17 @@ public class ClienteController {
                 "Cliente não encontrado"));
     }
 
+    @DeleteMapping("/{id}/{nome}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteByName(@PathVariable Integer id, @PathVariable String nome) {
+        clientes.findById(id)
+                .map( cliente -> {clientes.deleteByNome(nome);
+                    return cliente;
+                })
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Cliente não encontrado"));
+    }
+
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update ( @PathVariable Integer id,
@@ -59,7 +67,7 @@ public class ClienteController {
     }
 
     @GetMapping()
-    public List<Cliente> find (Cliente filtro) {
+    public List<Cliente> findAll(Cliente filtro) {
         ExampleMatcher mather = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
